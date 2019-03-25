@@ -10,7 +10,9 @@ export default class Layout extends Component {
     return (
       <div>
         <h1>Hello Content</h1>
-        {items.map((item, index) => <Blog key={index} item={item} />)}
+        {items.map((item, index) => (
+          <Blog key={index} item={item} />
+        ))}
       </div>
     )
   }

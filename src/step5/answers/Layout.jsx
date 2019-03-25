@@ -36,7 +36,9 @@ export default class Layout extends Component {
 const NoItems = () => <div>No items to display</div>
 const List = () => (
   <div>
-    {items.map(fullItem).map((item, index) => <Blog key={index} item={item} />)}
+    {items.map(fullItem).map((item, index) => (
+      <Blog key={index} item={item} />
+    ))}
   </div>
 )
 
