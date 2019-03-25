@@ -13,7 +13,7 @@ To use it
 2. clone this repository
    `git clone https://github.com/dolfdijkstra/cafe-supremo-react-front.git`
 
-3. cd into cafe-supremo-react-front
+3. cd into hol-headless-react
 
 4. npm install
 
