@@ -4,7 +4,7 @@ import content from './content.json'
 
 const allItems = content.ALL.data.items
 
-const items = allItems.filter(item => item.type === 'Blog')
+const items = allItems.filter(item => item.type === 'Maximum_Article')
 
 const fullItem = item => content[item.id].data
 
@@ -12,15 +12,10 @@ const toHref = link =>
   link.href.replace('/items/', '/digital-assets/') + '/default'
 
 const fields = [
-  'blog_category',
-  'blog_textposition',
-  'blog_textcolor',
-  'blog_content',
-  'blog_image_ad',
-  'blog_image_thumbnail',
-  'blog_image_header',
-  'blog_image_ad_small',
-  'blog_author'
+    name,
+    description,
+    id,
+    links
 ]
 
 export default class Layout extends Component {
@@ -39,18 +34,13 @@ export default class Layout extends Component {
 const Blog = ({ item }) => {
   const { data } = item
   const {
-    blog_category,
-    blog_textposition,
-    blog_textcolor,
-    blog_content,
-    blog_image_ad,
-    blog_image_thumbnail,
-    blog_image_header,
-    blog_image_ad_small,
-    blog_author
+    name,
+    description,
+    id,
+    links
   } = data
-  const content = { __html: blog_content } // to be used with dangerouslySetInnerHTML
-  const image = toHref(blog_image_thumbnail.link)
+  const content = { __html: id.fields.maximum_article_content } // to be used with dangerouslySetInnerHTML
+  const image = toHref(id.fields.maximum_article_image_280x210.native.href)
 
   return (
     <div>
