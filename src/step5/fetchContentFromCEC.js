@@ -8,7 +8,7 @@ const token = '2098fc4952037dd5ad3f379904fbbf49'
 const host = 'https://workshop2content-oce0002.cec.ocp.oraclecloud.com'
 
 const itemsURL = ({ maxResults, sortOrder }) =>
-  `${host}/content/published/api/v1/items?orderBy=${esc(
+  `${host}/content/published/api/v1.1/items?orderBy=${esc(
     sortOrder
   )}&limit=${maxResults}&channelToken=${token}`
 
