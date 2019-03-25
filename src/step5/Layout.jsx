@@ -4,65 +4,46 @@ import content from './content.json'
 
 const allItems = content.ALL.data.items
 
-const items = allItems.filter(item => item.type === 'Blog')
+const items = allItems.filter(item => item.type === 'Maximum_Article')
 
 const fullItem = item => content[item.id].data
 
-const toHref = link =>
-  link.href.replace('/items/', '/digital-assets/') + '/default'
-
-const fields = [
-  'blog_category',
-  'blog_textposition',
-  'blog_textcolor',
-  'blog_content',
-  'blog_image_ad',
-  'blog_image_thumbnail',
-  'blog_image_header',
-  'blog_image_ad_small',
-  'blog_author'
-]
+const toHref = da =>
+  da.fields.renditions.filter(r => r.name ==='Large')[0].formats.filter(f => f.format ==='jpg')[0].links[0].href
 
 export default class Layout extends Component {
-  render () {
+  render() {
     return (
       <div>
         <h1>Hello Content</h1>
-        {items.length == 0 ? <NoItems /> : <List />}
+        {items
+          .map(fullItem)
+          .map((item, index) => <Blog key={index} item={item} />)}
       </div>
     )
   }
 }
-const NoItems = () => <div>No items to display</div>
-const List = () => (
-  <div>
-    {items.map(fullItem).map((item, index) => <Blog key={index} item={item} />)}
-  </div>
-)
 
 const Blog = ({ item }) => {
-  const { data } = item
+
+  const { fields } = item
   const {
-    blog_category,
-    blog_textposition,
-    blog_textcolor,
-    blog_content,
-    blog_image_ad,
-    blog_image_thumbnail,
-    blog_image_header,
-    blog_image_ad_small,
-    blog_author
-  } = data
-  const content = { __html: blog_content }
-  const image = toHref(blog_image_thumbnail.link)
+    maximum_article_category, 
+    maximum_article_content, 
+    maximum_article_image_280x210, 
+    maximum_article_image_1000x562, 
+    maximum_article_date
+  } = fields
+  const content = { __html: maximum_article_content } // to be used with dangerouslySetInnerHTML
+  const image = toHref(maximum_article_image_280x210)
 
   return (
     <div>
       <div>
-        <strong>{item.name}</strong>: {blog_category}
+        <strong>{item.name}</strong>: {maximum_article_category}
       </div>
       <div>
-        <img src={image} />
+        <img src={image} alt={item.name}/>
       </div>
       <div dangerouslySetInnerHTML={content} />
     </div>
