@@ -1,4 +1,4 @@
-### Conent and Experience React
+### Content and Experience React
 
 
 
@@ -11,7 +11,7 @@ To use it
    2. get nodejs
 
 2. clone this repository
-   `git clone https://github.com/dolfdijkstra/cafe-supremo-react-front.git`
+   `git clone https://github.com/dolfdijkstra/hol-headless-react`
 
 3. cd into hol-headless-react
 
