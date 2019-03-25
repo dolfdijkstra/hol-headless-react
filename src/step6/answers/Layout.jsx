@@ -6,24 +6,11 @@ import content from './content.json'
 
 const allItems = content.ALL.data.items
 
-const items = allItems.filter(item => item.type === 'Blog')
+const items = allItems.filter(item => item.type === 'Maximum_Article')
 
 const fullItem = item => content[item.id].data
 
-const toHref = link =>
-  link.href.replace('/items/', '/digital-assets/') + '/default'
-
-const fields = [
-  'blog_category',
-  'blog_textposition',
-  'blog_textcolor',
-  'blog_content',
-  'blog_image_ad',
-  'blog_image_thumbnail',
-  'blog_image_header',
-  'blog_image_ad_small',
-  'blog_author'
-]
+const toHref = da => da.fields.native.links[0].href
 
 export default class Layout extends Component {
   render () {
@@ -60,10 +47,10 @@ const Body = () => (
 const Header = () => (
   <header className='w3-container w3-center w3-padding-32'>
     <h1>
-      <b>Coffee Lovers Blog</b>
+      <b>Car Lovers Blog</b>
     </h1>
     <p>
-      The blog of <span className='w3-tag'>Coffee Lovers</span>
+      The blog of <span className='w3-tag'>Car Lovers</span>
     </p>
   </header>
 )
@@ -84,7 +71,7 @@ const AboutCard = () => (
     <img src='/w3images/avatar_g.jpg' style={w100pct} />
     <div className='w3-container w3-white'>
       <h4>
-        <b>Coffee Lovers</b>
+        <b>Car Lovers</b>
       </h4>
       <p>
         Just me, myself and I, exploring the universe of uknownment. I have a
@@ -147,8 +134,9 @@ const PopularPosts = () => (
     </ul>
   </div>
 )
+const Blogs = () => <List />
 
-const BlogsOld = () => (
+const Blogs_old = () => (
   <div>
     <div className='w3-card-4 w3-margin w3-white'>
       <img src='/w3images/woods.jpg' alt='Nature' style={w100pct} />
@@ -231,11 +219,13 @@ const BlogsOld = () => (
     </div>
   </div>
 )
-const Blogs = () => <List />
+
 const NoItems = () => <div>No items to display</div>
 const List = () => (
   <div>
-    {items.map(fullItem).map((item, index) => <Blog key={index} item={item} />)}
+    {items.map(fullItem).map((item, index) => (
+      <Blog key={index} item={item} />
+    ))}
   </div>
 )
 const dateToMDY = date =>
@@ -246,28 +236,24 @@ const dateToMDY = date =>
   })
 
 const Blog = ({ item }) => {
-  const { data } = item
+  const { fields } = item
   const {
-    blog_category,
-    blog_textposition,
-    blog_textcolor,
-    blog_content,
-    blog_image_ad,
-    blog_image_thumbnail,
-    blog_image_header,
-    blog_image_ad_small,
-    blog_author
-  } = data
+    maximum_article_category,
+    maximum_article_content,
+    maximum_article_image_280x210,
+    maximum_article_image_1000x562,
+    maximum_article_date
+  } = fields
+  const content = { __html: maximum_article_content } // to be used with dangerouslySetInnerHTML
+  const image = toHref(maximum_article_image_1000x562)
+  const date = dateToMDY(item.updatedDate)
 
-  const content = { __html: blog_content }
-  const image = toHref(blog_image_thumbnail.link)
-  const date = dateToMDY(item.updateddate)
   return (
     <div className='w3-card-4 w3-margin w3-white'>
       <img src={image} alt={item.name} style={w100pct} />
       <div className='w3-container'>
         <h3>
-          <b>{blog_category}</b>
+          <b>{maximum_article_category}</b>
         </h3>
         <h5>
           {item.description}, <span className='w3-opacity'>{date}</span>
