@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import content from './content.json'
 const allItems = content.ALL.data.items
 
-const items = allItems.filter(item => item.type === 'Blog')
+const items = allItems.filter(item => item.type === 'Maximum_Article')
 
 export default class Layout extends Component {
   render () {
