@@ -145,10 +145,11 @@ class Blogs extends Component {
       .then(data => {
         console.log(data)
         
-        const blogs = data.ALL.items.filter(
+        const blogs = data.items.filter(
           item => item.type === 'Maximum_Article'
         )
-        const items = [] // CHANGE CODE to return the full items
+        const items = data.items.filter(item => item.type === 'Maximum_Article'
+        ) // CHANGE CODE to return the full items
         this.setState({ items:items })
       })
       .catch(err => {
